@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="../static/js/methods.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../static/style/style.css">
+<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Books, and Movies based on Books - CSCI 586</title>
+    <style>
+        table {
+            display: table;
+            border-collapse: separate;
+            border-spacing: 2px;
+            border-color: gray;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        td {
+            border-spacing: 0 5px;
+        }
+
+        .boxes {
+            display: block;
+        }
+
+        .well {
+            background-color: white;
+        }
+
+        /*
+                body{
+                    background-color:#F0FFFF;
+                }
+        */
+
+    </style>
+    <script type="text/javascript">
+        function clearAction() {
+            $("#movieTitle").attr('value', "");
+            $("#castname").attr('value', "");
+            $("#dirname").attr('value', "");
+            $("#movieGenre").attr('value', "");
+            $("#movielang").attr('value', "");
+            $("#movieRating").attr('value', "");
+            $("#releaseYear").attr('value', "");
+            $("#releaseyearend").attr('value', "");
+            $("#famousAwards").attr('value', "");
+            $("#otherAwards").attr('value', "");
+            $("#writename").attr('value', "");
+            $("#bookTitle").attr('value', "");
+            $("#authorname").attr('value', "");
+            $("#pubname").attr('value', "");
+            $("#bookGenre").attr('value', "");
+            $("#booklang").attr('value', "");
+            $("#pubYear").attr('value', "");
+            $("#bookRating").attr('value', "");
+
+        }
+    </script>
+</head>
+<script>
+    //location.reload();
+    window.onload = function () {
+        document.getElementById("loader-display").style.display = 'none';
+        document.getElementById("table-container").style.display = 'none';
+
+    };
+</script>
+<body style="background-color:#065773;" data-spy="scroll">
+
+<form onsubmit="return upload(this);" class="form-inline">
+    <div class="container" id="titlebar">
+        <!--Main container-->
+        <div class="page-header">
+            <center><h1 style="color:white;">Books and Movies based on Books</h1></center>
+        </div>
+
+        <div class="well">
+            <div id="movie_select_fields" class="row">
+                <h3 style="padding:10px;">Movies:</h3><br><br>
+                <div class="form-group" style="padding-left:10px; margin-top:-50px;">
+
+                    <input type="checkbox" id="Movie Name" value="movieTitle"> Movie Name &nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Cast" value="castname"> Movie Cast&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Director" value="dirname"> Movie Director&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Genres" value="movieGenre"> Movie Genres&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Languages" value="movielang"> Movie Languages&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Rating" value="movieRating"> Movie Rating&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Release Year" value="releaseYear"> Movie Release Year&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Runtime" value="runtime"> Movie Runtime&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Famous Awards" value="famousAwards"> Movie Famous Awards&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Other Awards" value="otherAwards"> Movie Other Awards&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Movie Writers" value="writername"> Movie Writers&nbsp;&nbsp;&nbsp;<br>
+                </div>
+                <br>
+            </div>
+
+            <div id="book_select_fields" class="row">
+                <h3 style="padding:10px;">Books:</h3><br><br>
+                <div class="form-group" style="padding-left:10px; margin-top:-60px;">
+                    <input type="checkbox" id="Book Title" value="bookTitle"> Book Title&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Book Author" value="authorname"> Book Author&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Book Publisher" value="pubname"> Book Publisher&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Book Rating" value="bookRating"> Book Rating&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Book Publishing Year" value="pubYear"> Book Publishing Year&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Book Language" value="booklang"> Book Language&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Book Pages" value="bookpages"> Book Pages&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="Book Genre" value="bookGenre">Book Genre&nbsp;&nbsp;&nbsp;
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="well form-horizontal">
+
+            <center>
+                <table class="table table-striped">
+
+                    <tr>
+                        <th>Movie Name</th>
+                        <td><input type="text" id="movieTitle" class="form-control" placeholder="Enter Movie Name"></td>
+                    </tr>
+                    <tr>
+                        <th>Movie Cast</th>
+                        <td><input type="text" id="castname" class="form-control" placeholder="EnterMovie Cast"></td>
+                    </tr>
+                    <tr>
+                        <th>Movie Director</th>
+                        <td><input type="text" id="dirname" class="form-control" placeholder="Enter Movie Director">
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th>Movie Genres</th>
+                        <td><input type="text" id="movieGenre" class="form-control" placeholder="Enter Movie Genre">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Movie Language</th>
+                        <td><select id="movielang" style="width:200px" class="form-control">
+                            <option value="">Select Movie Language</option>
+                            <option value="English">English</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="French">French</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th>Movie Rating</th>
+                        <td><input type="number" id="movieRating" min="1" max="10" step="0.1" style="width:200px"
+                                   class="form-control" placeholder="Enter Rating from 1 to 10"> (Greater or Equal to)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Movie Release</th>
+                        <td><input type="number" id="releaseYear" min="1933" max="2017" class="form-control"
+                                   placeholder="Enter Year after 1933">
+                            <input type="number" id="releaseyearend" min="1933" max="2017" class="form-control"
+                                   placeholder="Enter Year before 2017"></td>
+                    </tr>
+                    <tr>
+                        <th>Movie Famous Awards</th>
+                        <td><select id="famousAwards" style="width:200px" class="form-control">
+                            <option value="">Select Famous Awards</option>
+                            <option value="oscar">OSCAR</option>
+                            <option value="Golden Globe">Golden Globe</option>
+                            <option value="Bafta">Bafta</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th>Movie Other Awards</th>
+                        <td><input type="text" id="otherAwards" class="form-control" placeholder="Enter Movie Awards">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Movie Writers</th>
+                        <td><input type="text" id="writername" class="form-control" placeholder="Enter Movie Writer">
+                        </td>
+                    </tr>
+
+
+                    <!--
+                            </div>
+                            <div class="well .col-md-6">
+                    -->
+
+                    <tr>
+                        <th>Book Title</th>
+                        <td><input type="text" id="bookTitle" class="form-control" placeholder="Enter Book Title"></td>
+                    </tr>
+                    <tr>
+                        <th>Book Author</th>
+                        <td><input type="text" id="authorname" class="form-control"
+                                   placeholder="Enter Book Author Name"></td>
+                    </tr>
+                    <tr>
+                        <th>Book Publisher</th>
+                        <td><input type="text" id="pubname" class="form-control" placeholder="Enter Book Publisher">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Book Publishing Year</th>
+                        <td><input type="number" id="pubYear" min="1849" max="2014" style="width:200px"
+                                   class="form-control" placeholder="Enter 1894 to 2014"> (Greater or Equal to)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Book Language</th>
+                        <td><select id="booklang" style="width:200px" class="form-control">
+                            <option value="">Select Book Language</option>
+                            <option value="English">English</option>
+                            <option value="German">German</option>
+                            <option value="French">French</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th>Book Genre</th>
+                        <td><input type="text" id="bookGenre" class="form-control" placeholder="Enter Book Genre"></td>
+                    </tr>
+                    <tr>
+                        <th>Book Rating</th>
+                        <td><input type="number" id="bookRating" min="1" max="5" step="0.1" style="width:200px"
+                                   class="form-control" placeholder="Enter Rating from 1 to 5"> (Greater or Equal to)
+                        </td>
+                    </tr>
+
+                </table>
+            </center>
+            <div>
+                <center>
+                    <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"
+                                                                               aria-hidden="true"></span> Submit
+                    </button>
+                    <button type="reset" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-refresh"
+                                                                              aria-hidden="true"></span>
+                        Clear
+                    </button>
+                </center>
+            </div>
+        </div>
+
+    </div>
+
+
+</form>
+<br><br>
+<div class="container" id="loader-display">
+    <div class="well">
+        <div>
+            <h3 id="loader-msg">Querying RDF</h3>
+            <img src="../static/images/ajax-loader.gif">
+        </div>
+
+    </div>
+</div>
+<br><br>
+<div class="container" id="table-container">
+    <div class="well">
+        <h3 style="padding:10px;">Results:</h3><br><br>
+        <div id="table-display" style="height:1000px; width:1100px;overflow-x:scroll ; overflow-y: scroll;">
+        </div>
+    </div>
+</div>
+</body>
+</html>
